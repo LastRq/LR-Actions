@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "LR-Actions",
+  "version": "1.0.0",
+  "identifier": "com.lastrq.lr-actions",
+  "build": {
+    "frontendDist": "../gui"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "label": "launcher",
+        "title": "LR-Actions — Seleccionar proyecto",
+        "width": 580,
+        "height": 440,
+        "resizable": false,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/icon.ico"
+    ],
+    "resources": {
+      "../scripts/test-center": "scripts/test-center"
+    }
+  }
+}

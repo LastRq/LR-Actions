@@ -1,0 +1,15 @@
+{
+  "name": "lr-actions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interfaz de escritorio Tauri para LR-Actions",
+  "scripts": {
+    "tauri": "tauri",
+    "dev": "tauri dev",
+    "build": "tauri build",
+    "test": "node --test scripts/test-center/tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.5.0"
+  }
+}

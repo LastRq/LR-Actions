@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>LR-Actions — Seleccionar proyecto</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b0f13;
+      --surface: #141a20;
+      --border: #29323b;
+      --muted: #96a2ad;
+      --text: #eaf0f1;
+      --accent: #9cb5a6;
+      --good: #7fb49a;
+      --bad: #d39187;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: var(--font);
+      background: radial-gradient(ellipse 680px 320px at 50% -140px, #24332c55, transparent), var(--bg);
+      color: var(--text);
+      user-select: none;
+    }
+    .wrap {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 26px 28px 22px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 34px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      color: #c1d4c8;
+    }
+    .brand-icon svg { width: 28px; }
+    .brand strong {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 2px;
+      font-weight: 800;
+    }
+    .brand span {
+      display: block;
+      font-size: 9.5px;
+      letter-spacing: 2.3px;
+      color: #899b96;
+      margin-top: 3px;
+      font-weight: 600;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 650;
+      letter-spacing: -0.4px;
+      margin: 18px 0 6px;
+    }
+    .subtitle {
+      margin: 0 0 18px;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .card {
+      border: 1px solid var(--border);
+      background: linear-gradient(155deg, #161d23, #11171c 75%);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .field-label {
+      display: block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      color: #7f9a8c;
+      margin-bottom: 8px;
+    }
+    .row {
+      display: flex;
+      gap: 8px;
+    }
+    input[type="text"] {
+      flex: 1;
+      min-width: 0;
+      background: #0d1216;
+      border: 1px solid #323e48;
+      border-radius: 8px;
+      color: var(--text);
+      padding: 10px 12px;
+      font-size: 12px;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      user-select: text;
+    }
+    input[type="text"]:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+      border-color: var(--accent);
+    }
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .browse-btn {
+      background: #1d272e;
+      border: 1px solid #3a4852;
+      color: var(--text);
+      border-radius: 8px;
+      padding: 0 14px;
+      font-size: 12px;
+      font-weight: 650;
+      white-space: nowrap;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .browse-btn:hover:not(:disabled) {
+      background: #25333b;
+      border-color: #657c70;
+    }
+    .status {
+      margin-top: 12px;
+      min-height: 22px;
+      font-size: 11.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+    }
+    .status.ok { color: var(--good); }
+    .status.err { color: var(--bad); }
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #55646e;
+      flex-shrink: 0;
+    }
+    .status.ok .dot { background: var(--good); box-shadow: 0 0 0 3px #254132; }
+    .status.err .dot { background: var(--bad); box-shadow: 0 0 0 3px #432825; }
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .note {
+      font-size: 10.5px;
+      color: #77858f;
+    }
+    .primary-btn {
+      background: #abc4b3;
+      border: 1px solid #b6c8bc;
+      border-radius: 8px;
+      color: #15221c;
+      padding: 12px 18px;
+      font-size: 12.5px;
+      font-weight: 800;
+      transition: background 0.15s;
+    }
+    .primary-btn:hover:not(:disabled) {
+      background: #c0d8c9;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div>
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 2.8 20 6v6.2c0 4.9-2.8 7.5-8 9.1-5.2-1.6-8-4.2-8-9.1V6l8-3.2Z" stroke="currentColor" stroke-width="1.5"/>
+            <path d="m8.5 11.9 2.4 2.4 4.9-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <strong>LR-ACTIONS</strong>
+          <span>DESKTOP TEST LAUNCHER</span>
+        </div>
+      </div>
+
+      <h1>¿Dónde quieres hacer el testeo?</h1>
+      <p class="subtitle">Selecciona la carpeta raíz de tu proyecto Identity Core (donde están <code>package.json</code> y <code>Cargo.toml</code>). El Centro de Pruebas se abrirá en una ventana independiente sin navegador ni consola.</p>
+
+      <div class="card">
+        <label class="field-label" for="dir-input">DIRECTORIO DEL PROYECTO</label>
+        <div class="row">
+          <input id="dir-input" type="text" placeholder="Ej: D:\Proyectos\Identity-Core" autocomplete="off" spellcheck="false" />
+          <button id="browse-btn" type="button" class="browse-btn">Examinar...</button>
+        </div>
+        <div id="status" class="status">
+          <span class="dot"></span>
+          <span id="status-text">Elige una carpeta para validar el proyecto.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="note">Ejecución 100% local · Sin consola</span>
+      <button id="launch-btn" type="button" class="primary-btn" disabled>Abrir Centro de Pruebas</button>
+    </div>
+  </div>
+
+  <script>
+    const { invoke } = window.__TAURI__.core;
+    const STORAGE_KEY = 'identity-core-tester:last-dir';
+    const input = document.getElementById('dir-input');
+    const browseBtn = document.getElementById('browse-btn');
+    const launchBtn = document.getElementById('launch-btn');
+    const statusEl = document.getElementById('status');
+    const statusText = document.getElementById('status-text');
+
+    let isValid = false;
+    let launching = false;
+    let validateTimer = null;
+
+    function setStatus(kind, message) {
+      statusEl.className = 'status' + (kind ? ' ' + kind : '');
+      statusText.textContent = message;
+    }
+
+    async function validateDir(raw) {
+      const path = (raw || '').trim();
+      if (!path) {
+        isValid = false;
+        launchBtn.disabled = true;
+        setStatus('', 'Elige una carpeta para validar el proyecto.');
+        return;
+      }
+      try {
+        const res = await invoke('validate_project_dir', { path });
+        isValid = Boolean(res.valid);
+        launchBtn.disabled = !isValid || launching;
+        setStatus(res.valid ? 'ok' : 'err', res.message);
+      } catch (e) {
+        isValid = false;
+        launchBtn.disabled = true;
+        setStatus('err', String(e));
+      }
+    }
+
+    browseBtn.addEventListener('click', async () => {
+      try {
+        const picked = await invoke('pick_directory', { initialDir: input.value.trim() || null });
+        if (picked) {
+          input.value = picked;
+          localStorage.setItem(STORAGE_KEY, picked);
+          await validateDir(picked);
+        }
+      } catch (e) {
+        setStatus('err', 'No se pudo abrir el selector: ' + e);
+      }
+    });
+
+    input.addEventListener('input', () => {
+      clearTimeout(validateTimer);
+      validateTimer = setTimeout(() => validateDir(input.value), 180);
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && isValid && !launching) launchBtn.click();
+    });
+
+    launchBtn.addEventListener('click', async () => {
+      const projectDir = input.value.trim();
+      if (!projectDir || !isValid || launching) return;
+      launching = true;
+      launchBtn.disabled = true;
+      browseBtn.disabled = true;
+      input.disabled = true;
+      launchBtn.textContent = 'Iniciando...';
+      setStatus('', 'Iniciando servidor local en segundo plano...');
+      try {
+        localStorage.setItem(STORAGE_KEY, projectDir);
+        await invoke('launch_test_center', { projectDir });
+      } catch (e) {
+        launching = false;
+        browseBtn.disabled = false;
+        input.disabled = false;
+        launchBtn.textContent = 'Abrir Centro de Pruebas';
+        launchBtn.disabled = !isValid;
+        setStatus('err', String(e));
+      }
+    });
+
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      input.value = saved;
+      validateDir(saved);
+    }
+  </script>
+</body>
+</html>

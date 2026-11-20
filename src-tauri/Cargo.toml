@@ -1,0 +1,19 @@
+[package]
+name = "lr-actions"
+version = "1.0.0"
+description = "Interfaz gráfica Tauri para LR-Actions"
+authors = ["LastRq"]
+edition = "2021"
+
+[lib]
+name = "identity_core_tester_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"

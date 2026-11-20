@@ -1,0 +1,31 @@
+IDENTITY CORE TEST CENTER - INSTALACION
+=======================================
+
+Este ZIP es un complemento para tu copia ACTUAL del proyecto Identity Core.
+NO es el repositorio completo.
+
+WINDOWS
+  1. Abre tu carpeta del repositorio, donde estan package.json y Cargo.toml.
+  2. Extrae el contenido de este ZIP DIRECTAMENTE en esa carpeta.
+     - Iniciar-Pruebas.cmd quedara junto a package.json.
+     - scripts/test-center/ aparecera dentro de scripts/.
+  3. Agrega esta linea a tu .gitignore si aun no esta:
+         .identity-test-reports/
+  4. Haz doble clic en Iniciar-Pruebas.cmd.
+  5. En la interfaz, selecciona Rapidas o Completas y pulsa Ejecutar.
+  6. Descarga report.zip y subelo a ChatGPT o Antigravity.
+
+REQUISITOS
+  - Node.js 22+ en PATH. npm se instala junto con Node.
+  - Rust / cargo / rustfmt / clippy para comprobaciones Rust.
+  - Herramientas nativas de compilacion correspondientes a Windows.
+  - Conectividad a Internet para npm ci o auditorias de dependencias.
+
+IMPORTANTE
+  - No consume tokens de IA al ejecutar pruebas localmente; el analisis posterior de logs si utiliza tokens.
+  - No necesitas GitHub Actions para ejecutar este programa.
+  - No incluye compilacion NDK real Android ni pruebas fisicas o con OAuth real.
+  - No requiere privilegios de administrador. No envia logs automaticamente.
+  - Los informes pueden contener rutas locales y fragmentos de errores; revisalos antes de compartirlos.
+
+Manual extendido: scripts/test-center/README.md
